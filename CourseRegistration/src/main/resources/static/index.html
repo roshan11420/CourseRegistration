@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Course Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="loginScreen" class="login-screen">
+      <div class="login-card">
+        <h2>Welcome</h2>
+        <p>Please sign in to continue</p>
+        <label>
+          Username
+          <input id="loginUsername" type="text" placeholder="admin or student" />
+        </label>
+        <label>
+          Password
+          <input id="loginPassword" type="password" placeholder="password" />
+        </label>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:8px;">
+          <button id="loginPrimaryBtn" class="primary-btn">Login</button>
+          <button id="showSignupBtn" class="secondary-btn" type="button">Create student account</button>
+        </div>
+
+        <div id="signupBox" class="hidden-section" style="margin-top:14px;border-top:1px solid rgba(148,163,184,0.08);padding-top:12px;">
+          <h4 style="margin:0 0 8px 0;">Student Sign up</h4>
+          <label>
+            Full name
+            <input id="signupName" type="text" placeholder="Full name" />
+          </label>
+          <label>
+            Email
+            <input id="signupEmail" type="email" placeholder="email@example.com" />
+          </label>
+          <label>
+            Department
+            <input id="signupDepartment" type="text" placeholder="Computer Science" />
+          </label>
+          <label>
+            Username
+            <input id="signupUsername" type="text" placeholder="desired username" />
+          </label>
+          <label>
+            Password
+            <input id="signupPassword" type="password" placeholder="choose a password" />
+          </label>
+          <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:8px;">
+            <button id="signupSubmitBtn" class="primary-btn">Create account</button>
+            <button id="signupCancelBtn" class="secondary-btn">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="appShell" class="app-shell hidden-section">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">CM</div>
+          <div>
+            <h1>Course Management</h1>
+            <p>Course Registration</p>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a class="nav-link active" href="#dashboard">Dashboard</a>
+          <a class="nav-link" href="#students">Students</a>
+          <a class="nav-link" href="#courses">Courses</a>
+          <a class="nav-link" href="#enrollments">Enrollments</a>
+        </nav>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Academic management</p>
+            <h2>Student Registration Dashboard</h2>
+          </div>
+            <div class="header-actions">
+              <div id="authPanel" class="auth-panel hidden-section">
+                              <input id="usernameInput" type="text" value="" placeholder="Username" />
+                              <input id="passwordInput" type="password" value="" placeholder="Password" />
+                <button id="loginBtn" class="secondary-btn" type="button">Login</button>
+              </div>
+              <button id="refreshBtn" class="primary-btn">Refresh Data</button>
+
+                            <div id="profilePanel" class="auth-panel hidden-section" style="align-items:center; gap:10px;">
+                              <span id="profileName" style="font-weight:700;color:var(--text)"></span>
+                              <button id="profileBtn" class="secondary-btn" type="button">Profile</button>
+                            </div>
+
+                            <button id="logoutBtn" class="secondary-btn hidden-section" type="button">Logout</button>
+            </div>
+          </header>
+
+          <section id="dashboard" class="dashboard-grid">
+          <article class="metric-card cyan">
+            <span>Total Students</span>
+            <strong id="studentCount">0</strong>
+          </article>
+          <article class="metric-card purple">
+            <span>Total Courses</span>
+            <strong id="courseCount">0</strong>
+          </article>
+          <article class="metric-card amber">
+            <span>Enrollments</span>
+            <strong id="enrollmentCount">0</strong>
+          </article>
+          <article class="metric-card green">
+            <span>Available Seats</span>
+            <strong id="availableSeats">0</strong>
+          </article>
+        </section>
+
+        <section class="stacked-grid">
+          <div class="panel admin-only">
+            <div class="panel-header">
+              <h3>Add Student</h3>
+            </div>
+            <form id="studentForm" class="form-grid">
+              <label>
+                Full Name
+                <input type="text" name="name" placeholder="Enter student name" required />
+              </label>
+              <label>
+                Email
+                <input type="email" name="email" placeholder="student@email.com" required />
+              </label>
+              <label>
+                Department
+                <input type="text" name="department" placeholder="Computer Science" required />
+              </label>
+              <button class="primary-btn" type="submit">Save Student</button>
+            </form>
+          </div>
+
+          <div class="panel admin-only">
+            <div class="panel-header">
+              <h3 id="courseFormTitle">Add Course</h3>
+            </div>
+            <form id="courseForm" class="form-grid">
+              <input type="hidden" name="courseId" />
+              <label>
+                Course Code
+                <input type="text" name="code" placeholder="CS101" required />
+              </label>
+              <label>
+                Course Title
+                <input type="text" name="title" placeholder="Introduction to Programming" required />
+              </label>
+              <label>
+                Department
+                <input type="text" name="department" placeholder="Computer Science" required />
+              </label>
+              <label>
+                Credits
+                <input type="number" name="credits" min="1" value="3" required />
+              </label>
+              <label>
+                Capacity
+                <input type="number" name="capacity" min="1" value="30" required />
+              </label>
+              <label>
+                Schedule
+                <input type="text" name="schedule" placeholder="Mon/Wed 10:00-11:30" required />
+              </label>
+              <label class="wide">
+                Prerequisites
+                <input type="text" name="prerequisites" placeholder="CS101, MATH101" />
+              </label>
+              <label class="wide">
+                Description
+                <textarea name="description" rows="3" placeholder="Short description of the course"></textarea>
+              </label>
+              <div class="form-actions">
+                <button id="courseSubmitBtn" class="primary-btn" type="submit">Save Course</button>
+                <button id="courseCancelBtn" class="secondary-btn hidden-section" type="button">Cancel</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="panel student-only">
+            <div class="panel-header">
+              <h3>Enroll Student</h3>
+            </div>
+            <form id="enrollmentForm" class="form-grid">
+              <label id="studentSelectLabel">
+                Student
+                <select name="studentId">
+                  <option value="">Select student</option>
+                </select>
+              </label>
+              <label id="studentNameLabel" class="hidden-section">
+                Student Name
+                <input id="studentNameInput" type="text" name="studentName" placeholder="Your full name" />
+              </label>
+              <label id="studentEmailLabel" class="hidden-section">
+                Student Email
+                <input id="studentEmailInput" type="email" name="studentEmail" placeholder="you@example.com" />
+              </label>
+              <label>
+                Course
+                <select name="courseId" required>
+                  <option value="">Select course</option>
+                </select>
+              </label>
+              <label>
+                Semester
+                <input type="text" name="semester" placeholder="2026 Spring" required />
+              </label>
+              <label>
+                Status
+                <select name="status">
+                  <option value="ENROLLED">Enrolled</option>
+                  <option value="COMPLETED">Completed</option>
+                </select>
+              </label>
+              <button class="primary-btn" type="submit">Enroll</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="table-panel" id="students">
+          <div class="panel-header">
+            <h3>Students</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Department</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="studentTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="table-panel" id="courses">
+          <div class="panel-header">
+            <h3>Courses</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Title</th>
+                  <th>Department</th>
+                  <th>Credits</th>
+                  <th>Capacity</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="courseTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="table-panel" id="enrollments">
+          <div class="panel-header">
+            <h3>Enrollments</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Student</th>
+                  <th>Course</th>
+                  <th>Semester</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="enrollmentTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="/script.js"></script>
+  </body>
+</html>
